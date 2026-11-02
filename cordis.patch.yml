@@ -1,0 +1,4 @@
+# Inserts the plugin's Host row into the profile's layer stack.
+- insert:
+    - id: dsh-direct-open
+      name: 'dsh-direct-open'
