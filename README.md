@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://unpkg.com/dsh-direct-open@latest/icon.svg" width="72" height="72" alt="dsh-direct-open icon">
+  <img src="https://gcore.jsdelivr.net/gh/likaileave/dsh-direct-open@main/icon.svg" width="72" height="72" alt="dsh-direct-open icon">
 </p>
 
 <h1 align="center">dsh-direct-open</h1>
@@ -7,11 +7,9 @@
 <p align="center">让 DSH 的文件入口左键直接用系统默认程序打开，并提供可配置的右键菜单。</p>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/dsh-direct-open"><img alt="npm version" src="https://img.shields.io/npm/v/dsh-direct-open.svg"></a>
   <a href="https://github.com/likaileave/dsh-direct-open/releases"><img alt="GitHub release" src="https://img.shields.io/github/v/release/likaileave/dsh-direct-open"></a>
   <a href="LICENSE"><img alt="License" src="https://img.shields.io/github/license/likaileave/dsh-direct-open"></a>
   <a href="https://github.com/topics/dsh-plugin"><img alt="DeepSeek Harness plugin" src="https://img.shields.io/badge/DeepSeek%20Harness-dsh--plugin-4D6BFE"></a>
-  <a href="https://awesome-dsh-plugin.com"><img alt="Awesome DSH Plugin" src="https://awesome-dsh-plugin.com/badge.svg"></a>
 </p>
 
 <p align="center">
