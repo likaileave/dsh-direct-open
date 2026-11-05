@@ -8,7 +8,6 @@
 - 设置页重整：总开关、左键各入口开关、右键接管方式、右键各入口开关、菜单项开关分组展示；选择「不接管任何右键」时，入口与菜单项开关一并停用。
 - 旧版设置自动迁移，不需要重新配置。
 - 悬停提示改为在入口上即时显示当前左键动作：交付卡片和改动卡片里的提示文字就地切换，文件提及与多文件改动行使用跟随提示；按住放行修饰键立即恢复「在侧边栏预览」，松开立即切回。
-- 统一文案为「以系统默认程序打开」。
 
 ### 新增
 
@@ -20,7 +19,6 @@
 - The settings page is regrouped: master switch, left-click surface switches, right-click takeover mode, right-click surface switches, and menu items. Choosing "never take over" disables the surface and item switches.
 - Existing settings migrate automatically; no reconfiguration is needed.
 - Hover hints now show the current left-click action immediately on the entry: delivered cards and changed-file headers update their in-card hint in place, while file mentions and multi-file rows use a following hint. Holding the passthrough modifier restores "preview in sidebar" immediately, and releasing it switches back at once.
-- Wording is unified as "Open with the system default application".
 
 ### Added
 
