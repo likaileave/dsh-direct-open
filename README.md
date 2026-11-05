@@ -4,7 +4,7 @@
 
 <h1 align="center">dsh-direct-open</h1>
 
-<p align="center">让 DSH 的文件入口左键直接用系统默认程序打开，并提供可配置的右键菜单。</p>
+<p align="center">让 DSH 的文件入口左键直接以系统默认程序打开；右键接管方式可选：全部接管、只接管原生没有菜单的、或完全不接管。</p>
 
 <p align="center">
   <a href="https://www.npmjs.com/package/dsh-direct-open"><img alt="npm version" src="https://img.shields.io/npm/v/dsh-direct-open.svg"></a>
@@ -23,17 +23,17 @@
 
 ## 中文
 
-`dsh-direct-open` 是一个纯客户端 DSH 插件：它接管回复里的文件入口，把左键从「只进 DSH 侧边栏」改成用系统默认程序打开，并为这些入口提供一个独立的右键菜单。插件不启动额外进程，也不修改 DSH 的 Host 配置。
+`dsh-direct-open` 是一个纯客户端 DSH 插件：它接管回复里的文件入口，把左键从「只进 DSH 侧边栏」改成以系统默认程序打开。右键接管方式可选——全部接管、只接管 DSH 原生没有菜单的入口（默认）、或完全不接管。插件不启动额外进程，也不修改 DSH 的 Host 配置。
 
 ### 功能
 
-- **左键直接打开**：交付文件卡片、改动卡片里的文件行、正文中的文件提及，点击后用系统默认程序打开对应路径。
+- **左键直接打开**：交付文件卡片、改动卡片里的文件行、正文中的文件提及，点击后以系统默认程序打开对应路径。
 - **三种左键动作**：可以改成「在文件管理器中定位」或「在 DSH 侧边栏中查看」；默认仍保留 DSH 原有的侧边栏行为作为可选项。
 - **修饰键放行**：默认按住 `Shift` 时不接管左键，交给 DSH 原来的点击逻辑；可在设置里改成 `Ctrl`、`Alt` 或完全不放行。
-- **五项右键菜单**：用默认程序打开、在文件管理器中定位、在 DSH 侧边栏中查看、复制绝对路径、复制相对路径。菜单支持键盘方向键、`Enter` 和 `Escape`。
-- **悬停提示跟随动作**：不按放行修饰键时显示当前左键动作，按住放行修饰键时恢复原来的「在侧边栏预览」；交付卡片上的可见文案也会同步切换。
-- **按入口开关**：交付卡、改动卡、文件提及可以分别启用或停用，左键和右键各自独立设置。
-- **设置页**：位于「设置 → 打开方式」，包含总开关、可用性状态、入口开关、左键动作、放行修饰键、右键菜单项目、诊断选项，以及设置导入 / 导出和恢复默认。
+- **三种右键接管方式**：「接管所有右键菜单」在勾选入口上覆盖 DSH 原生菜单；「只接管没有原生右键菜单的右键」（默认）把有原生菜单的入口交给 DSH，原生没有时才显示插件的五项菜单（打开、定位、侧边栏、复制绝对路径、复制相对路径）；「不接管任何右键」让插件完全不拦截右键。
+- **悬停提示跟随动作**：不按放行修饰键时显示当前左键动作，按住放行修饰键时恢复原来的「在侧边栏预览」；交付卡片和改动卡片里的可见文案也会同步切换。
+- **按入口开关**：交付卡、改动卡、文件提及可以分别启用或停用；左键和右键各自独立设置。
+- **设置页**：位于「设置 → 打开方式」，包含总开关、可用性状态、左键入口开关、左键动作、放行修饰键、右键接管方式与入口开关、菜单项目、诊断选项，以及设置导入 / 导出和恢复默认。
 - **快捷键**：桌面端默认 `Ctrl/Cmd + Alt + Shift + O` 暂停或恢复直接打开；Web 端不设置默认键。
 
 ### 支持的入口
@@ -49,30 +49,47 @@
 
 ### 左键行为
 
-默认左键动作为「用系统默认程序打开」。
+默认左键动作为「以系统默认程序打开」。
 
 | 设置 | 行为 |
 |---|---|
-| 用系统默认程序打开 | 调用 DSH 的 `remote.session.openWorkspacePath({ path })` |
+| 以系统默认程序打开 | 调用 DSH 的 `remote.session.openWorkspacePath({ path })` |
 | 在文件管理器中定位 | 调用 `openWorkspacePath({ path, action: "reveal" })` |
 | 在 DSH 侧边栏中查看 | 把点击交回 DSH，触发入口原本的侧边栏预览 |
 | 按住放行修饰键 | 不接管本次点击，交给 DSH 原有行为 |
 
-放行修饰键默认是 `Shift`。例如左键动作设为「用默认程序打开」后，直接点击会打开文件，按住 `Shift` 点击则仍然进入 DSH 侧边栏。
+放行修饰键默认是 `Shift`。例如左键动作设为「以系统默认程序打开」后，直接点击会打开文件，按住 `Shift` 点击则仍然进入 DSH 侧边栏。
 
-### 右键菜单
+### 右键接管
 
-启用自定义菜单后，右键点击上述入口会打开插件菜单：
+右键接管方式三选一（设置页「右键接管 → 接管方式」）：
+
+| 接管方式 | 行为 |
+|---|---|
+| 接管所有右键菜单 | 勾选入口上的右键一律显示插件菜单，覆盖 DSH 原生菜单 |
+| 只接管没有原生右键菜单的右键（默认） | DSH 有原生菜单的入口交给原生；原生没有时才显示插件菜单 |
+| 不接管任何右键 | 插件从不拦截右键；原生菜单和页面默认行为完全不受影响 |
+
+默认方式下各入口的右键行为：
+
+| 入口 | 右键行为 |
+|---|---|
+| 交付文件卡片 | DSH 原生菜单 |
+| 编辑 / 写入 / Apply Patch 工具卡 | **仅文件名链接**显示 DSH 原生菜单；卡片其他区域没有 |
+| 正文文件提及 | DSH 原生菜单 |
+| 改动文件汇总卡 | DSH 没有原生菜单，显示插件菜单 |
+
+插件菜单的项目：
 
 | 菜单项 | 行为 |
 |---|---|
-| 用默认程序打开 | 用系统默认程序打开文件 |
+| 以系统默认程序打开 | 以系统默认程序打开文件 |
 | 在文件管理器中定位 | 在资源管理器 / Finder 中选中文件 |
 | 在 DSH 侧边栏中查看 | 触发入口原本的侧边栏预览 |
 | 复制绝对路径 | 复制解析后的绝对路径 |
 | 复制相对路径 | 相对当前会话工作目录复制路径；无法相对化时复制绝对路径 |
 
-菜单项可以逐项关闭；关闭「启用自定义右键菜单」后，右键完全交回 DSH 页面处理。菜单打开时会自动避开视口边缘，点击菜单外、按 `Escape`、滚动页面、调整窗口大小或窗口失焦都会关闭。
+菜单项可以逐项关闭；「在哪些入口接管」的三个开关分别控制交付卡、改动卡、文件提及；接管方式选「不接管任何右键」时这些开关一并停用。菜单打开时会自动避开视口边缘，点击菜单外、按 `Escape`、滚动页面、调整窗口大小或窗口失焦都会关闭。
 
 ### 设置
 
@@ -83,7 +100,7 @@
 | 总开关 | 暂停 / 恢复所有接管；关闭后所有入口恢复 DSH 默认行为，设置仍保留 |
 | 可用性 | 只读状态：当前环境是否提供系统打开能力 |
 | 左键 | 三个入口的开关、左键动作、放行修饰键 |
-| 右键菜单 | 菜单总开关、三个入口的菜单开关、五个菜单项开关 |
+| 右键接管 | 接管方式（三种）、三个入口开关、五个菜单项开关 |
 | 诊断 | 打开失败提示、复制成功提示、调试日志 |
 | 设置管理 | 恢复默认、导出 JSON、导入 JSON |
 
@@ -147,9 +164,9 @@ localStorage["dsh-direct-open:settings:v1"]
 - **相对路径依赖会话工作目录**：正文提及可能是相对路径，插件会用当前会话的 `cwd` 拼接；没有活动会话或 cwd 时不会接管点击，并在控制台记录原因。
 - **不接管多文件卡片头**：多文件卡片的「已编辑 N 个文件」标题行和展开 / 收起按钮保持 DSH 原行为，只接管每个文件行。
 - **侧边栏动作是回放原点击**：选择「在 DSH 侧边栏中查看」时，插件会触发入口元素原本的 click；如果 DSH 以后改掉这个入口的内部实现，侧边栏动作可能失效。
-- **右键不再弹原生菜单**：启用自定义菜单后，右键由插件接管，包括按住修饰键时；需要原生菜单时可在设置里关闭「启用自定义右键菜单」。
-- **不支持指定应用**：只有系统默认程序打开和文件管理器定位，不提供「用某个指定应用打开」。
-- **悬停提示的刷新时机**：交付卡片的可见文案会立即切换；原生 `title` 提示在部分平台上需要先把鼠标移出再移入，才能看到新文字。
+- **默认不抢原生菜单**：默认的「只接管没有原生右键菜单的右键」下，「复制相对路径」只在原生没有菜单的改动汇总卡上可用；要全入口都能用插件菜单，把接管方式改成「接管所有右键菜单」。
+- **不支持指定应用**：只提供以系统默认程序打开和在文件管理器中定位，不提供「用某个指定应用打开」。
+- **悬停提示的刷新时机**：交付卡片、改动卡片和文件提及的提示会立即跟随左键动作与放行修饰键切换；其他 DSH 原生 `title` 提示仍受平台限制，可能需要移出再移入才能刷新。
 - **设置不跨设备同步**：设置存在浏览器 `localStorage`，不会跟随 DSH 账号或 Host 配置同步。
 
 ### 常见问题
@@ -158,9 +175,9 @@ localStorage["dsh-direct-open:settings:v1"]
 
 先确认设置里的总开关和对应入口已开启，当前环境显示「系统打开能力可用」，并且点击时没有按住放行修饰键。修改后刷新页面再试。
 
-**右键没有自定义菜单？**
+**右键没有插件菜单？**
 
-确认「启用自定义右键菜单」和对应入口的菜单开关已开启；Web 端或没有系统打开能力时不会接管右键。
+先看接管方式：选的是「只接管没有原生右键菜单的右键」时，已有 DSH 原生菜单的入口不会出现插件菜单，这是预期行为；要覆盖原生菜单就改成「接管所有右键菜单」。再确认对应回退入口的开关已开启、接管方式不是「不接管任何右键」；Web 端或没有系统打开能力时也不会显示插件菜单。
 
 **提示「路径无法解析」或没有反应？**
 
@@ -207,17 +224,17 @@ npm 包和 GitHub Release 使用相同版本号，两个渠道分别发布：
 
 ## English
 
-`dsh-direct-open` is a client-only DSH plugin that takes over file entries in replies: a left click opens the file in the system default application instead of only previewing it in the DSH sidebar, and a dedicated context menu exposes the other actions. It starts no extra process and does not modify DSH host configuration.
+`dsh-direct-open` is a client-only DSH plugin that takes over file entries in replies: a left click opens the file in the system default application instead of only previewing it in the DSH sidebar. Right-click takeover is configurable: take over everything, only where DSH has no native menu (default), or never. It starts no extra process and does not modify DSH host configuration.
 
 ### Features
 
 - **Direct left-click opening** for delivered-file cards, changed-file rows, and inline file mentions.
 - **Three left-click actions**: open with the system default app, reveal in the file manager, or keep the original DSH sidebar preview.
 - **Modifier passthrough**: hold `Shift` by default to skip takeover and use DSH's original click behavior; configurable to `Ctrl`, `Alt`, or no passthrough.
-- **Five-item context menu**: open, reveal, open in DSH sidebar, copy absolute path, copy relative path. Arrow keys, `Enter`, and `Escape` work.
-- **Hover text follows the action**: the current action is shown normally, and the original "preview in sidebar" text returns while the passthrough modifier is held. The visible hint on delivered-file cards switches too.
-- **Per-surface switches** for delivered cards, changed files, and mentions, with independent left-click and context-menu settings.
-- **Settings page** under Settings → Open With: master switch, availability, surfaces, left action, passthrough modifier, menu items, diagnostics, reset, export, and import.
+- **Three right-click takeover modes**: "Take over all right-click menus" replaces the DSH native menu on checked surfaces; "Only take over right-clicks with no native menu" (default) leaves native menus to DSH and shows the plugin's five-item menu (open, reveal, sidebar, copy absolute path, copy relative path) only where DSH has none; "Never take over right-clicks" leaves right-click entirely alone.
+- **Hover text follows the action**: the current action is shown normally, and the original "preview in sidebar" text returns while the passthrough modifier is held. The visible hint on delivered-file cards and changed-file headers switches too.
+- **Per-surface switches** for delivered cards, changed files, and mentions, with independent left-click and right-click settings.
+- **Settings page** under Settings → Open With: master switch, availability, left-click surfaces, left action, passthrough modifier, right-click takeover mode and surfaces, menu items, diagnostics, reset, export, and import.
 - **Shortcut**: `Ctrl/Cmd + Alt + Shift + O` on desktop toggles takeover; no default shortcut on the web.
 
 ### Supported surfaces
@@ -237,26 +254,43 @@ The default action is **open with the system default application**.
 
 | Setting | Behavior |
 |---|---|
-| Open with default app | Calls `remote.session.openWorkspacePath({ path })` |
+| Open with the system default application | Calls `remote.session.openWorkspacePath({ path })` |
 | Reveal in file manager | Calls `openWorkspacePath({ path, action: "reveal" })` |
 | Open in DSH sidebar | Replays the entry's original click |
 | Hold passthrough modifier | Leaves the click to DSH |
 
 The default passthrough modifier is `Shift`. For example, with the default action, a plain click opens the file and `Shift`-click still opens the DSH sidebar preview.
 
-### Context menu
+### Right-click takeover
 
-When enabled, right-clicking a supported entry opens:
+Three takeover modes (Settings → Open With → Right-click takeover):
+
+| Takeover mode | Behavior |
+|---|---|
+| Take over all right-click menus | Right-click on checked surfaces always shows the plugin menu, replacing the DSH native menu |
+| Only take over right-clicks with no native menu (default) | Surfaces with a DSH native menu stay with DSH; the plugin menu appears only where DSH has none |
+| Never take over right-clicks | The plugin never intercepts right-click; native menus and page defaults are untouched |
+
+With the default mode, each surface behaves like this:
+
+| Surface | Right-click behavior |
+|---|---|
+| Delivered-file card | DSH native menu |
+| Edit / write / apply-patch tool card | DSH native menu on the **file-name link only**; no menu elsewhere on the card |
+| Inline file mention | DSH native menu |
+| Changed-files summary card | No native menu, so the plugin menu appears |
+
+Plugin menu items:
 
 | Item | Behavior |
 |---|---|
-| Open with default app | Opens the file in the system default application |
+| Open with the system default application | Opens the file in the system default application |
 | Reveal in file manager | Selects the file in Explorer / Finder |
 | Open in DSH sidebar | Triggers the entry's original sidebar preview |
 | Copy absolute path | Copies the resolved absolute path |
 | Copy relative path | Copies a path relative to the current session cwd; falls back to absolute when it cannot be relativized |
 
-Items can be disabled individually. Turning off "Enable custom context menu" returns right-click to the DSH page. The menu clamps itself to the viewport and closes on outside click, `Escape`, scroll, resize, or window blur.
+Items can be disabled individually. The three "Surfaces to take over" switches control delivered cards, changed files, and mentions; they are disabled while the mode is "Never take over right-clicks". The menu clamps itself to the viewport and closes on outside click, `Escape`, scroll, resize, or window blur.
 
 ### Settings
 
@@ -267,7 +301,7 @@ Settings live under **Settings → Open With** and apply immediately; they also 
 | Master switch | Pause / resume all takeover; settings are kept |
 | Availability | Read-only system-open capability status |
 | Left click | Per-surface switches, left action, passthrough modifier |
-| Context menu | Menu master switch, per-surface menu switches, five item switches |
+| Right-click takeover | Takeover mode (three options), per-surface switches, five item switches |
 | Diagnostics | Failure toast, copy toast, debug logging |
 | Settings management | Reset, export JSON, import JSON |
 
@@ -330,9 +364,9 @@ The plugin writes no host configuration, uploads no paths, and sends no telemetr
 - **Relative paths need a session cwd**: inline mentions may be relative and are resolved against the active session's cwd. Without an active session or cwd, the click is not taken over and the reason is logged.
 - **Multi-file card header is not handled**: the "N files changed" header and its expand / collapse button keep their original behavior; only file rows are handled.
 - **Sidebar action replays the original click**, so a future DSH change to that entry's internals could break it.
-- **No native context menu passthrough**: when the custom menu is enabled it handles right-click, including with modifiers. Disable "Enable custom context menu" to get the page's native menu back.
+- **Default mode leaves native menus alone**: with the default "Only take over right-clicks with no native menu" mode, "Copy relative path" is available only on the changed-files summary card. Switch the takeover mode to "Take over all right-click menus" to get the plugin menu on every surface.
 - **No "open with" app picker**: only the system default application and file-manager reveal are provided.
-- **Native tooltip timing**: the visible hint on delivered-file cards updates immediately; on some platforms the native `title` tooltip needs the pointer to leave and re-enter before it shows the new text.
+- **Native tooltip timing**: the visible hints on delivered-file cards and changed-file headers update immediately; other native `title` tooltips still need the pointer to leave and re-enter before they show new text.
 - **Settings do not sync across devices**: they live in browser `localStorage`, not in the DSH account or host configuration.
 
 ### FAQ
@@ -341,9 +375,9 @@ The plugin writes no host configuration, uploads no paths, and sends no telemetr
 
 Check the master switch, the relevant surface switch, the availability line, and whether a passthrough modifier is held. Refresh the page after changing settings.
 
-**No custom context menu?**
+**No plugin context menu?**
 
-Check the menu master switch and the per-surface menu switch. The web build and environments without system-open capability do not take over right-click.
+First check the takeover mode: in "Only take over right-clicks with no native menu" mode, surfaces that already have a DSH native menu intentionally show no plugin menu — switch to "Take over all right-click menus" to override them. Then check that the relevant surface switch is on and the mode is not "Never take over right-clicks". The web build and environments without system-open capability also do not show the plugin menu.
 
 **Nothing happens, or a path cannot be resolved?**
 

@@ -1,6 +1,6 @@
 {
   "meta": {
     "title": "Direct Open",
-    "description": "Open files in the system default application, and right-click for open, reveal, sidebar, and path-copy actions."
+    "description": "Open files in the system default app; choose how right-click is taken over: all menus, only where DSH has none, or never."
   }
 }
