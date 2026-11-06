@@ -11,6 +11,7 @@
   <a href="https://github.com/likaileave/dsh-direct-open/releases"><img alt="GitHub release" src="https://img.shields.io/github/v/release/likaileave/dsh-direct-open"></a>
   <a href="LICENSE"><img alt="License" src="https://img.shields.io/github/license/likaileave/dsh-direct-open"></a>
   <a href="https://github.com/topics/dsh-plugin"><img alt="DeepSeek Harness plugin" src="https://img.shields.io/badge/DeepSeek%20Harness-dsh--plugin-4D6BFE"></a>
+  <a href="https://awesome-dsh-plugin.com/zh/p/likaileave/dsh-direct-open/"><img alt="Awesome DSH Plugin" src="https://awesome-dsh-plugin.com/badge.svg"></a>
 </p>
 
 <p align="center">
@@ -27,12 +28,12 @@
 
 ### 功能
 
-- **左键直接打开**：交付文件卡片、改动卡片里的文件行、正文中的文件提及，点击后以系统默认程序打开对应路径。
+- **左键直接打开**：交付文件卡片、改动卡片里的文件行、正文中的文件提及、工具卡里的文件名链接，点击后以系统默认程序打开对应路径。
 - **三种左键动作**：可以改成「在文件管理器中定位」或「在 DSH 侧边栏中查看」；默认仍保留 DSH 原有的侧边栏行为作为可选项。
 - **修饰键放行**：默认按住 `Shift` 时不接管左键，交给 DSH 原来的点击逻辑；可在设置里改成 `Ctrl`、`Alt` 或完全不放行。
 - **三种右键接管方式**：「接管所有右键菜单」在勾选入口上覆盖 DSH 原生菜单；「只接管没有原生右键菜单的右键」（默认）把有原生菜单的入口交给 DSH，原生没有时才显示插件的五项菜单（打开、定位、侧边栏、复制绝对路径、复制相对路径）；「不接管任何右键」让插件完全不拦截右键。
 - **悬停提示跟随动作**：不按放行修饰键时显示当前左键动作，按住放行修饰键时恢复原来的「在侧边栏预览」；交付卡片和改动卡片里的可见文案也会同步切换。
-- **按入口开关**：交付卡、改动卡、文件提及可以分别启用或停用；左键和右键各自独立设置。
+- **按入口开关**：交付卡、改动卡、文件提及、工具卡文件名可以分别启用或停用；左键和右键各自独立设置。
 - **设置页**：位于「设置 → 打开方式」，包含总开关、可用性状态、左键入口开关、左键动作、放行修饰键、右键接管方式与入口开关、菜单项目、诊断选项，以及设置导入 / 导出和恢复默认。
 - **快捷键**：桌面端默认 `Ctrl/Cmd + Alt + Shift + O` 暂停或恢复直接打开；Web 端不设置默认键。
 
@@ -44,8 +45,9 @@
 | 改动卡片（单文件） | 单个文件的标题行 | 接管标题行按钮，路径来自 DSH 的隐藏描述节点 |
 | 改动卡片（多文件） | 多文件列表的每一行 | 只接管文件行，不接管「已编辑 N 个文件」卡片头 |
 | 正文文件提及 | 回复正文里的行内文件引用 | 同时覆盖行内代码提及和显式文件链接 |
+| 工具卡文件名 | 编辑、写入、Apply Patch 等工具卡里的文件名链接 | 从链接文字取路径；`~` 开头的家目录缩写路径不接管 |
 
-以下入口**不会**被接管：多文件卡片的整体标题行、review 页面、普通行内代码（不是文件提及的代码片段）。
+以下入口**不会**被接管：多文件卡片的整体标题行、review 页面、普通行内代码（不是文件提及的代码片段）、以 `~` 缩写且无法还原绝对路径的工具卡文件名。
 
 ### 左键行为
 
@@ -75,7 +77,7 @@
 | 入口 | 右键行为 |
 |---|---|
 | 交付文件卡片 | DSH 原生菜单 |
-| 编辑 / 写入 / Apply Patch 工具卡 | **仅文件名链接**显示 DSH 原生菜单；卡片其他区域没有 |
+| 工具卡文件名（编辑 / 写入 / Apply Patch） | 仅文件名链接有菜单；默认交给 DSH 原生菜单，接管方式选「接管所有右键菜单」时由插件接管；卡片其他区域没有 |
 | 正文文件提及 | DSH 原生菜单 |
 | 改动文件汇总卡 | DSH 没有原生菜单，显示插件菜单 |
 
@@ -99,8 +101,8 @@
 |---|---|
 | 总开关 | 暂停 / 恢复所有接管；关闭后所有入口恢复 DSH 默认行为，设置仍保留 |
 | 可用性 | 只读状态：当前环境是否提供系统打开能力 |
-| 左键 | 三个入口的开关、左键动作、放行修饰键 |
-| 右键接管 | 接管方式（三种）、三个入口开关、五个菜单项开关 |
+| 左键 | 四个入口的开关、左键动作、放行修饰键 |
+| 右键接管 | 接管方式（三种）、四个入口开关、五个菜单项开关 |
 | 诊断 | 打开失败提示、复制成功提示、调试日志 |
 | 设置管理 | 恢复默认、导出 JSON、导入 JSON |
 
@@ -228,12 +230,12 @@ npm 包和 GitHub Release 使用相同版本号，两个渠道分别发布：
 
 ### Features
 
-- **Direct left-click opening** for delivered-file cards, changed-file rows, and inline file mentions.
+- **Direct left-click opening** for delivered-file cards, changed-file rows, inline file mentions, and tool-card file names.
 - **Three left-click actions**: open with the system default app, reveal in the file manager, or keep the original DSH sidebar preview.
 - **Modifier passthrough**: hold `Shift` by default to skip takeover and use DSH's original click behavior; configurable to `Ctrl`, `Alt`, or no passthrough.
 - **Three right-click takeover modes**: "Take over all right-click menus" replaces the DSH native menu on checked surfaces; "Only take over right-clicks with no native menu" (default) leaves native menus to DSH and shows the plugin's five-item menu (open, reveal, sidebar, copy absolute path, copy relative path) only where DSH has none; "Never take over right-clicks" leaves right-click entirely alone.
 - **Hover text follows the action**: the current action is shown normally, and the original "preview in sidebar" text returns while the passthrough modifier is held. The visible hint on delivered-file cards and changed-file headers switches too.
-- **Per-surface switches** for delivered cards, changed files, and mentions, with independent left-click and right-click settings.
+- **Per-surface switches** for delivered cards, changed files, mentions, and tool-card file names, with independent left-click and right-click settings.
 - **Settings page** under Settings → Open With: master switch, availability, left-click surfaces, left action, passthrough modifier, right-click takeover mode and surfaces, menu items, diagnostics, reset, export, and import.
 - **Shortcut**: `Ctrl/Cmd + Alt + Shift + O` on desktop toggles takeover; no default shortcut on the web.
 
@@ -245,8 +247,9 @@ npm 包和 GitHub Release 使用相同版本号，两个渠道分别发布：
 | Changed-file card (single) | Header row of a single changed file | The path comes from DSH's hidden description node |
 | Changed-file card (multiple) | Each row in the multi-file list | Rows only; the "N files changed" card header is not handled |
 | Inline file mention | File references in reply text | Covers inline-code mentions and explicit file links |
+| Tool-card file name | The underlined file-name link inside edit, write, apply-patch, and similar tool cards | The path is read from the link text; `~`-abbreviated paths are left alone |
 
-Not handled: the multi-file card header, the review page, and ordinary inline code that is not a file mention.
+Not handled: the multi-file card header, the review page, ordinary inline code that is not a file mention, and `~`-abbreviated tool-card paths whose absolute form cannot be restored.
 
 ### Left-click behavior
 
@@ -276,7 +279,7 @@ With the default mode, each surface behaves like this:
 | Surface | Right-click behavior |
 |---|---|
 | Delivered-file card | DSH native menu |
-| Edit / write / apply-patch tool card | DSH native menu on the **file-name link only**; no menu elsewhere on the card |
+| Tool-card file name (edit / write / apply-patch) | Only the file-name link has a menu; DSH native menu by default, the plugin menu takes over when the mode is "Take over all right-click menus" |
 | Inline file mention | DSH native menu |
 | Changed-files summary card | No native menu, so the plugin menu appears |
 
@@ -290,7 +293,7 @@ Plugin menu items:
 | Copy absolute path | Copies the resolved absolute path |
 | Copy relative path | Copies a path relative to the current session cwd; falls back to absolute when it cannot be relativized |
 
-Items can be disabled individually. The three "Surfaces to take over" switches control delivered cards, changed files, and mentions; they are disabled while the mode is "Never take over right-clicks". The menu clamps itself to the viewport and closes on outside click, `Escape`, scroll, resize, or window blur.
+Items can be disabled individually. The four "Surfaces to take over" switches control delivered cards, changed files, mentions, and tool-card file names; they are disabled while the mode is "Never take over right-clicks". The menu clamps itself to the viewport and closes on outside click, `Escape`, scroll, resize, or window blur.
 
 ### Settings
 
