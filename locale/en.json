@@ -1,6 +1,6 @@
 {
   "meta": {
     "title": "Direct Open",
-    "description": "Open delivered cards, changed files, mentions, and tool-card file names in the system default app; choose how right-click is taken over: all menus, only where DSH has none, or never."
+    "description": "Left-click applies the selected action to delivered cards, changed-file rows, file mentions, and tool-card file names; right-click takeover is configurable."
   }
 }
