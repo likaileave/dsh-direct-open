@@ -32,9 +32,9 @@
 - **三种左键动作**：可以改成「在文件管理器中定位」或「在 DSH 侧边栏中查看」；默认仍保留 DSH 原有的侧边栏行为作为可选项。
 - **修饰键放行**：默认按住 `Shift` 时不接管左键，交给 DSH 原来的点击逻辑；可在设置里改成 `Ctrl`、`Alt` 或完全不放行。
 - **三种右键接管方式**：「接管所有右键菜单」在勾选入口上覆盖 DSH 原生菜单；「只接管没有原生右键菜单的右键」（默认）把有原生菜单的入口交给 DSH，原生没有时才显示插件的五项菜单（打开、定位、侧边栏、复制绝对路径、复制相对路径）；「不接管任何右键」让插件完全不拦截右键。
-- **悬停提示跟随动作**：不按放行修饰键时显示当前左键动作，按住放行修饰键时恢复原来的「在侧边栏预览」；交付卡片和改动卡片里的可见文案也会同步切换。
+- **悬停提示跟随动作**：不按放行修饰键时显示当前左键动作，按住放行修饰键时恢复原来的「在侧边栏预览」；交付卡片和改动卡片里的可见文案也会同步切换。设置里的「显示悬停浮层」可以关掉插件自绘的那层浮层提示（文件提及和多文件改动行会用到），关掉后卡片文案仍照常切换、元素自身的原生提示也不再被移除。
 - **按入口开关**：交付卡、改动卡、文件提及、工具卡文件名可以分别启用或停用；左键和右键各自独立设置。
-- **设置页**：位于「设置 → 打开方式」，包含总开关、可用性状态、左键入口开关、左键动作、放行修饰键、右键接管方式与入口开关、菜单项目、诊断选项，以及设置导入 / 导出和恢复默认。
+- **设置页**：位于「设置 → 打开方式」，包含总开关、可用性状态、左键入口开关、左键动作、放行修饰键、悬停浮层开关、右键接管方式与入口开关、菜单项目、诊断选项，以及设置导入 / 导出和恢复默认。
 - **快捷键**：桌面端默认 `Ctrl/Cmd + Alt + Shift + O` 暂停或恢复直接打开；Web 端不设置默认键。
 
 ### 支持的入口
@@ -234,9 +234,9 @@ npm 包和 GitHub Release 使用相同版本号，两个渠道分别发布：
 - **Three left-click actions**: open with the system default app, reveal in the file manager, or keep the original DSH sidebar preview.
 - **Modifier passthrough**: hold `Shift` by default to skip takeover and use DSH's original click behavior; configurable to `Ctrl`, `Alt`, or no passthrough.
 - **Three right-click takeover modes**: "Take over all right-click menus" replaces the DSH native menu on checked surfaces; "Only take over right-clicks with no native menu" (default) leaves native menus to DSH and shows the plugin's five-item menu (open, reveal, sidebar, copy absolute path, copy relative path) only where DSH has none; "Never take over right-clicks" leaves right-click entirely alone.
-- **Hover text follows the action**: the current action is shown normally, and the original "preview in sidebar" text returns while the passthrough modifier is held. The visible hint on delivered-file cards and changed-file headers switches too.
+- **Hover text follows the action**: the current action is shown normally, and the original "preview in sidebar" text returns while the passthrough modifier is held. The visible hint on delivered-file cards and changed-file headers switches too. The "Show the hover tooltip" setting turns off the plugin's own floating tooltip (used by file mentions and multi-file rows); in-card hint text still switches and native titles are left untouched.
 - **Per-surface switches** for delivered cards, changed files, mentions, and tool-card file names, with independent left-click and right-click settings.
-- **Settings page** under Settings → Open With: master switch, availability, left-click surfaces, left action, passthrough modifier, right-click takeover mode and surfaces, menu items, diagnostics, reset, export, and import.
+- **Settings page** under Settings → Open With: master switch, availability, left-click surfaces, left action, passthrough modifier, hover-tooltip switch, right-click takeover mode and surfaces, menu items, diagnostics, reset, export, and import.
 - **Shortcut**: `Ctrl/Cmd + Alt + Shift + O` on desktop toggles takeover; no default shortcut on the web.
 
 ### Supported surfaces
