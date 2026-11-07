@@ -1,6 +1,6 @@
 {
   "name": "dsh-direct-open",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "type": "module",
   "description": "Left-click applies the selected action to delivered files, changed-file rows, file mentions, and tool-card file names; right-click takeover is configurable: all menus, only where DSH has none, or never.",
   "keywords": [

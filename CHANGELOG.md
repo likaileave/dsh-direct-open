@@ -1,5 +1,25 @@
 # Changelog
 
+## [0.3.0] - 2026-11-07
+
+### 新增
+
+- 支持工具卡中的文件名链接：编辑、写入、Apply Patch 等工具卡里的文件名，左键按当前左键动作处理，右键按当前接管方式处理；可用「工具卡文件名」入口开关单独控制。
+- 设置页新增「显示悬停浮层」开关，默认开启。关闭后不再显示文件提及和多文件改动行的插件浮层，卡片内提示文字仍随左键动作切换。
+
+### 修复
+
+- 修复插件菜单与 DSH 原生右键菜单同时出现的问题：原生菜单已经打开时不再叠加插件菜单；插件菜单打开后若原生菜单随后出现，插件菜单会自动关闭。
+
+### Added
+
+- Tool-card file names are now supported: file-name links in edit, write, apply-patch, and similar tool cards follow the current left-click action on left click and the current takeover mode on right click; the new "Tool-card file names" surface switch controls them independently.
+- Settings now has a "Show hover overlay" switch, on by default. When off, the plugin no longer draws its overlay for file mentions and multi-file changed rows; in-card hint text still follows the left-click action.
+
+### Fixed
+
+- Fixed the plugin menu and DSH's native context menu appearing together: the plugin menu no longer opens over an already-open native menu, and closes itself if a native menu appears afterwards.
+
 ## [0.2.0] - 2026-11-05
 
 ### 变更
