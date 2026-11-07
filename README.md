@@ -119,7 +119,7 @@
 
 ### 安装
 
-需要 DSH `0.2.0-rc.2` 或更高版本，并且运行在提供 `remote.session.openWorkspacePath` 的桌面端。
+需要 DSH `0.2.1-rc.3` 至 `0.3.0` 之间的版本（不含 `0.3.0`），并且运行在提供 `remote.session.openWorkspacePath` 的桌面端。
 
 **npm**
 
@@ -321,7 +321,7 @@ The shortcut toggles direct opening and can be changed in DSH's shortcut setting
 
 ### Install
 
-Requires DSH `0.2.0-rc.2` or newer and a desktop runtime that provides `remote.session.openWorkspacePath`.
+Requires DSH `0.2.1-rc.3` up to but not including `0.3.0`, and a desktop runtime that provides `remote.session.openWorkspacePath`.
 
 **npm**
 
