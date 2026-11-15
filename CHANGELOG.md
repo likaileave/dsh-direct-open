@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.3.1] - 2026-11-15
+
+### 修复
+
+- 修复在 DSH 0.2.2-rc.3 中，多文件改动卡的文件行点击后仍进入侧边栏预览、没有按左键动作直接打开的问题；单文件卡片的标题仍保留 DSH 原有的侧边栏 review 行为。
+
+### Fixed
+
+- Fixed multi-file changed-card rows on DSH 0.2.2-rc.3 still opening the sidebar preview instead of following the left-click action. A single-file card header keeps DSH's original review behavior.
+
 ## [0.3.0] - 2026-11-07
 
 ### 新增
